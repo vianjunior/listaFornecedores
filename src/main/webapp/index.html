@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Lista de Fornecedores</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <script src="app/app.js"></script>
+    </head>
+    <body>
+        <div class="container" ng-app="Fornecedores" ng-controller="FornecedoresCtrl">
+            <!-- Início chamada modal -->
+            <div ng-include="'view/modalFornecedor.html'"></div>
+            <!-- Fim chamada modal -->
+
+            <hr>
+            <button type="button" class="btn btn-primary pull-right" ng-click="abrir('criar')">Novo Registro</button>
+            <h2>{{ app }}</h2>
+            <div class="alert alert-info alert-dismissible" role="alert" ng-if="info">
+                <button type="button" class="close" aria-label="Close">
+                    <span aria-hidden="true" ng-click="limparInfo()">&times;</span>
+                </button>
+                {{info}}
+            </div>
+            <hr>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
+                <input type="text" class="form-control" placeholder="Busca rápida" ng-model="searchQuery">
+            </div>
+            <br>
+            <div>
+                <table class="table table-striped table-bordered table-condensed">
+                    <thead>
+                    <td>Código</td>
+                    <td>Razão Social</td>
+                    <td>E-mail</td>
+                    <td>CNPJ</td>
+                    <td>Observação</td>
+                    <td>
+                        <div class="text-center">Editar</div>
+                    </td>
+                    <td>
+                        <div class="text-center">Excluir</div>
+                    </td>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="r in registros | filter:searchQuery">
+                            <td>{{ r.id }}</td>
+                            <td>{{ r.razaoSocial }}</td>
+                            <td>{{ r.email }}</td>
+                            <td>{{ r.cnpj }}</td>
+                            <td>{{ r.obs }}</td>
+                            <td>
+                                <div class="text-center"><button type="button" class="btn btn-info" ng-click="abrir('alterar', r)">
+                                        <span class="glyphicon glyphicon-pencil"></span></button></div>
+                            </td>
+                            <td>
+                                <div class="text-center"><button type="button" class="btn btn-danger" ng-click="deletar(r)">
+                                        <span class="glyphicon glyphicon-minus-sign"></span></button></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
