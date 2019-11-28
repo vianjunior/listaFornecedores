@@ -1,7 +1,6 @@
 com\devjunior\listaempresas\controllers\FornecedorController.class
-com\devjunior\listaempresas\infra\ConexaoJDBC.class
 com\devjunior\listaempresas\infra\ConexaoPostgresJDBC.class
 com\devjunior\listaempresas\listaEmpresas.class
 com\devjunior\listaempresas\controllers\HelloWorldController.class
-com\devjunior\listaempresas\data\Status.class
+com\devjunior\listaempresas\data\FornecedorDAO.class
 com\devjunior\listaempresas\data\Fornecedor.class

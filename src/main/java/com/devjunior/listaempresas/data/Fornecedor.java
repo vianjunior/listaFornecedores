@@ -20,8 +20,6 @@ public class Fornecedor {
     private String cnpj;
     
     private String obs;
-    
-    private Status status;
 
     public long getId() {
         return id;
@@ -61,44 +59,6 @@ public class Fornecedor {
 
     public void setObs(String obs) {
         this.obs = obs;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 61 * hash + (int) (this.id ^ (this.id >>> 32));
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Fornecedor other = (Fornecedor) obj;
-        if (this.id != other.id) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "Fornecedor{" + "id=" + id + ", razaoSocial=" + razaoSocial + ", email=" + email + ", cnpj=" + cnpj + ", obs=" + obs + ", status=" + status + '}';
     }
     
     

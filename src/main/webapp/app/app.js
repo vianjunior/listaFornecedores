@@ -33,10 +33,10 @@ app.controller("FornecedoresCtrl", ($scope, $http, urlBase) => {
             $("#modalFornecedor").modal("show");
         } else {
             $scope.fornecedor.id = fornecedor.id;
-            $scope.fornecedor.razaoSocial = fornecedor.razaoSocial;
-            $scope.fornecedor.email = fornecedor.email;
-            $scope.fornecedor.cnpj = fornecedor.cnpj;
-            $scope.fornecedor.obs = fornecedor.obs;
+            $scope.fornecedor.razaoSocial = fornecedor.razaoSocial || "";
+            $scope.fornecedor.email = fornecedor.email || "";
+            $scope.fornecedor.cnpj = fornecedor.cnpj || "";
+            $scope.fornecedor.obs = fornecedor.obs || "";
             $("#modalFornecedor").modal("show");
         }
     };
@@ -55,7 +55,8 @@ app.controller("FornecedoresCtrl", ($scope, $http, urlBase) => {
             data: $scope.fornecedor
         }).then(function successCallback(response){
             $scope.atualizarLista();
-            $scope.info = "Operação realiada com sucesso!";
+            $scope.info = "Operação realizada com sucesso!";
+            
         }, function errorCallBack(response){
             $scope.erro();
         });
@@ -71,10 +72,11 @@ app.controller("FornecedoresCtrl", ($scope, $http, urlBase) => {
         
         $http({
             method: 'DELETE',
-            url: urlBase + '/deleta/' + $scope.fornecedor.id
+            url: urlBase + '/deleta',
+            data: $scope.fornecedor
         }).then(function successCallback(response){
             $scope.atualizarLista();
-            $scope.info = "Fornecedor excluído com sucesso!";
+            $scope.info = "Fornecedor " + registro.id + " excluído com sucesso!";
         }, function errorCallback(response){
             $scope.erro();
         });

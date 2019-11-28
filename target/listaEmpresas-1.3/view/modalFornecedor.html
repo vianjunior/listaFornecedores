@@ -9,10 +9,10 @@
             <div class="modal-body">
                 <form class="form-horizontal">
                     <div class="form-group">
-                        <div class="col-sm-12">
+                        <div class="col-sm-12" ng-if="fornecedor.id">
                             <h7>Código</h7>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-3" ng-if="fornecedor.id">
                             <input type="number" class="form-control" ng-model="fornecedor.id" disabled>
                         </div>
                     </div>

@@ -1,6 +1,5 @@
-D:\Projetos\Java\listaEmpresas\src\main\java\com\devjunior\listaempresas\infra\ConexaoJDBC.java
 D:\Projetos\Java\listaEmpresas\src\main\java\com\devjunior\listaempresas\controllers\FornecedorController.java
-D:\Projetos\Java\listaEmpresas\src\main\java\com\devjunior\listaempresas\data\Status.java
+D:\Projetos\Java\listaEmpresas\src\main\java\com\devjunior\listaempresas\data\FornecedorDAO.java
 D:\Projetos\Java\listaEmpresas\src\main\java\com\devjunior\listaempresas\controllers\HelloWorldController.java
 D:\Projetos\Java\listaEmpresas\src\main\java\com\devjunior\listaempresas\data\Fornecedor.java
 D:\Projetos\Java\listaEmpresas\src\main\java\com\devjunior\listaempresas\listaEmpresas.java

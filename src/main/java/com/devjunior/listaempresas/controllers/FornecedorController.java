@@ -6,16 +6,15 @@
 package com.devjunior.listaempresas.controllers;
 
 import com.devjunior.listaempresas.data.Fornecedor;
-import com.devjunior.listaempresas.data.Status;
+import com.devjunior.listaempresas.data.FornecedorDAO;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -30,76 +29,41 @@ public class FornecedorController {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/lista")
-    public List<Fornecedor> listFornecedores(){
-        Fornecedor f1 = new Fornecedor();
-        f1.setId(1);
-        f1.setRazaoSocial("Empresa Teste Junior");
-        f1.setEmail("email@email.com");
-        f1.setCnpj("123456789101101");
-        f1.setObs("Deu boa");
-        f1.setStatus(Status.ATIVO);
+    public ArrayList<Fornecedor> listFornecedores() throws SQLException{
         
-        Fornecedor f2 = new Fornecedor();
-        f2.setId(2);
-        f2.setRazaoSocial("Empresa Teste Bruna");
-        f2.setEmail("email@email.com");
-        f2.setCnpj("123456789101101");
-        f2.setObs("Deu boa");
-        f2.setStatus(Status.ATIVO);
-        
-        Fornecedor f3 = new Fornecedor();
-        f3.setId(3);
-        f3.setRazaoSocial("Empresa Teste Marcelo");
-        f3.setEmail("email@email.com");
-        f3.setCnpj("123456789101101");
-        f3.setObs("Deu boa");
-        f3.setStatus(Status.INATIVO);
-        
-        List<Fornecedor> fornecedores = new ArrayList<>();
-        fornecedores.add(f1);
-        fornecedores.add(f2);
-        fornecedores.add(f3);
-        
+        ArrayList fornecedores = new ArrayList();
+        FornecedorDAO fd = new FornecedorDAO();
+        fornecedores = fd.selecionarRegistros();
         return fornecedores;
-        
-    }
-    
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/lista/{id}")
-    public Fornecedor getFornecedor(@PathParam("id") long id){
-        Fornecedor f1 = new Fornecedor();
-        f1.setId(id);
-        f1.setRazaoSocial("Empresa Teste " + id);
-        f1.setEmail("email@email.com2 " + id);
-        f1.setCnpj("123456789101101 " + id);
-        f1.setObs("Deu boa2 " + id);
-        f1.setStatus(Status.ATIVO);
-        
-        return f1;
-    
     }
     
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/cadastra")
-    public Response createFornecedor(Fornecedor fornecedor) {
-        System.out.println(fornecedor.toString());
-        return Response.status(Response.Status.OK).build();
+    public Response createFornecedor(String fornecedor) throws SQLException {
+        try{
+            FornecedorDAO fd = new FornecedorDAO();
+            int resultado = fd.inserirRegistros(fornecedor);
+            return Response.ok(resultado).build();
+        } catch (SQLException e) {
+            return Response.serverError().build();
+        }
     }
     
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/atualiza")
-    public Response updateFornecedor(Fornecedor fornecedor){
-        System.out.println(fornecedor.toString());
+    public Response updateFornecedor(String fornecedor) throws SQLException{
+        FornecedorDAO fd = new FornecedorDAO();
+        int resultado = fd.atualizarRegistros(fornecedor);
         return Response.status(Response.Status.OK).build();
     }
     
     @DELETE
-    @Path("/deleta/{id}")
-    public Response deleteFornecedor(@PathParam("id") long id){
-        System.out.println("Deletando Fornecedor: " + id);
+    @Path("/deleta")
+    public Response deleteFornecedor(String fornecedor) throws SQLException{
+        FornecedorDAO fd = new FornecedorDAO();
+        int resultado = fd.deletarRegistros(fornecedor);
         return Response.status(Response.Status.OK).build();
     }    
      

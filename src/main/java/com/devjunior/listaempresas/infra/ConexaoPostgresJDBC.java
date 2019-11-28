@@ -11,64 +11,32 @@ import java.sql.SQLException;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Junior
  */
-public class ConexaoPostgresJDBC implements ConexaoJDBC{
+public class ConexaoPostgresJDBC {
+    private Connection conexao;
     
-    private Connection connection = null;
-    
-    public ConexaoPostgresJDBC()throws SQLException, ClassNotFoundException{
-    
-        Class.forName("org.postgresql.Driver");
-        
-        Properties properties = new Properties();
-        properties.put("user", "postgres");
-        properties.put("password", "postgres");
-        
-        this.connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/postgres", properties);
-        this.connection.setAutoCommit(false);
-        
-    };
+    public  ConexaoPostgresJDBC(){
+        try{
+            String url ="jdbc:postgresql://localhost:5432/postgres";
+            String usuario = "postgres";
+            String senha = "postgres";
 
-    @Override
-    public Connection getConnection() {
-        return this.connection;
-    }
+            Class.forName("org.postgresql.Driver");
 
-    @Override
-    public void close() {
-        if (this.connection != null) {
-            try{
-                this.connection.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(ConexaoPostgresJDBC.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            conexao = DriverManager.getConnection(url, usuario, senha);
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Não foi possível conectar com o banco de dados");
         }
-        
     }
+    
+     public Connection getConexao(){
+        return conexao;
+    } 
 
-    @Override
-    public void commit() throws SQLException {
-        this.connection.commit();
-        this.close();
-        
-    }
-
-    @Override
-    public void rollback() {
-        if (this.connection != null) {
-            try {
-                this.connection.rollback();
-            } catch (SQLException ex) {
-                Logger.getLogger(ConexaoPostgresJDBC.class.getName()).log(Level.SEVERE, null, ex);
-            } finally {
-                this.close();
-            }
-        }
-        
-    }
     
 }
